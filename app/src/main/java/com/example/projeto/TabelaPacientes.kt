@@ -7,6 +7,7 @@ import android.provider.BaseColumns
 
 class TabelaPacientes(db: SQLiteDatabase)  {
 
+
     private val db: SQLiteDatabase = db
 
         fun cria() {
