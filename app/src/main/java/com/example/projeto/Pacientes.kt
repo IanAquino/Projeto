@@ -12,7 +12,9 @@ data class Pacientes(var id: Long = -1, var nome: String) {
     companion object{
         fun fromCursor(): Pacientes{
             val colId = cursor.getColumnIndex(BaseColumns._ID)
-            val colNome = cursor.getColumnIndex(TabelaCategorias.CAMPO_NOME)
+            val colNome = cursor.getColumnIndex(TabelaPacientes.CAMPO_NOME)
+            val colNascimento = cursor.getColumnIndex(TabelaPacientes.DATA_NASCIMENTO)
+            val colContacto = cursor.getColumnIndex(TabelaPacientes.CAMPO_CONTACTO)
 
             val id = cursor.getLong(0)
             val nome = cursor.getString(1)
