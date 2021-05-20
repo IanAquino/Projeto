@@ -22,8 +22,9 @@ class TestesBaseDados {
     private fun getAppContext() = InstrumentationRegistry.getInstrumentation().targetContext
     private fun getBdTeste() = BdTeste(getAppContext())
 
-    private fun inserePaciente(tabela: TabelaPacientes, nome: Pacientes): Long {
+    private fun inserePaciente(tabela: TabelaPacientes, nome: Pacientes, nascimento: Pacientes, contacto: Pacientes): Long {
         val id = tabela.insert(nome.toContentValues())
+
         assertNotEquals(-1, id)
 
         return id
@@ -47,7 +48,9 @@ class TestesBaseDados {
         val tabelaPacientes = TabelaPacientes(db)
 
         val nome = Pacientes (nome = "ALfa")
-        nome.id = inserePaciente(tabelaPacientes, nome)
+        val nascimento = Pacientes (nascimento = 123 )
+        val contacto = Pacientes (contacto = 964964)
+        nome.id = inserePaciente(tabelaPacientes, nome, nascimento, contacto)
 
         db.close()
     }
@@ -82,7 +85,7 @@ class TestesBaseDados {
         nome.id = inserePaciente(tabelaPacientes, nome)
 
         val cursor = tabelaPacientes.query(
-            TabelaPacientes.,
+            TabelaPacientes.,tabelaPacientes
             "${BaseColumns._ID}=?",
             arrayOf(nome.id.toString())
             null, null,null
