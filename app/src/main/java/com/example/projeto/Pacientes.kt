@@ -7,7 +7,7 @@ data class Pacientes(var id: Long = -1, var nome: String) {
         val valores = ContentValues()
         valores.put(TabelaPacientes.CAMPO_NOME, nome)
 
-        return valores 
+        return valores
     }
     companion object{
         fun fromCursor(): Pacientes{
@@ -16,8 +16,10 @@ data class Pacientes(var id: Long = -1, var nome: String) {
 
             val id = cursor.getLong(0)
             val nome = cursor.getString(1)
+            val nascimento = cursor.getInteger(1)
+            val contacto = cursor.getInteger(1)
 
-            return Categoria(id, nome)
+            return Pacientes(id, nome, nascimento, contacto)
         }
 
     }
