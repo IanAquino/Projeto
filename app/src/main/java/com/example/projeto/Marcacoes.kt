@@ -15,15 +15,15 @@ data class Marcacoes(var id: Long = -1, var nome: String, var data: Int, var ida
         fun fromCursor(cursor: Cursor): Marcacoes{
             val colId = cursor.getColumnIndex(BaseColumns._ID)
             val colNome = cursor.getColumnIndex(TabelaMarcacoes.CAMPO_NOME_PACIENTE)
-            val colNascimento = cursor.getColumnIndex(TabelaMarcacoes.DATA_MARCADA)
+            val colData = cursor.getColumnIndex(TabelaMarcacoes.DATA_MARCADA)
             val colContacto = cursor.getColumnIndex(TabelaMarcacoes.CAMPO_IDADE)
 
             val id = cursor.getLong(0)
             val nome = cursor.getString(1)
             val data = cursor.getInt(1)
-            val idade = cursor.getInt(1)
+            val contacto = cursor.getInt(1)
 
-            return Marcacoes(id, nome, data, idade)
+            return Marcacoes(id, nome, data, contacto)
         }
 
     }
