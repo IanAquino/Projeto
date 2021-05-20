@@ -22,8 +22,8 @@ class TestesBaseDados {
     private fun getAppContext() = InstrumentationRegistry.getInstrumentation().targetContext
     private fun getBdTeste() = BdTeste(getAppContext())
 
-    private fun inserePaciente(tabela: TabelaPacientes, categoria: Pacientes): Long {
-        val id = tabela.insert(categoria.toContentValues())
+    private fun inserePaciente(tabela: TabelaPacientes, nome: Pacientes): Long {
+        val id = tabela.insert(nome.toContentValues())
         assertNotEquals(-1, id)
 
         return id
