@@ -1,8 +1,10 @@
 package com.example.projeto
 
 import android.content.ContentValues
+import android.database.Cursor
+import android.provider.BaseColumns
 
-data class Marcacoes(var id: Long = -1, var nome: String) {
+data class Marcacoes(var id: Long = -1, var nome: String, data: Any, idade: Any) {
     fun toContentValues(): ContentValues {
         val valores = ContentValues()
         valores.put(TabelaMarcacoes.CAMPO_NOME, nome)
@@ -10,8 +12,7 @@ data class Marcacoes(var id: Long = -1, var nome: String) {
         return valores
     }
     companion object{
-        fun fromCursor(): Marcacoes{
-            val cursor
+        fun fromCursor(cursor: Cursor): Marcacoes{
             val colId = cursor.getColumnIndex(BaseColumns._ID)
             val colNome = cursor.getColumnIndex(TabelaMarcacoes.CAMPO_NOME_PACIENTE)
             val colNascimento = cursor.getColumnIndex(TabelaMarcacoes.DATA_MARCADA)
@@ -19,8 +20,8 @@ data class Marcacoes(var id: Long = -1, var nome: String) {
 
             val id = cursor.getLong(0)
             val nome = cursor.getString(1)
-            val data = cursor.getInteger(1)
-            val idade = cursor.getInteger(1)
+            val data = cursor.getInt(1)
+            val idade = cursor.getInt(1)
 
             return Marcacoes(id, nome, data, idade)
         }

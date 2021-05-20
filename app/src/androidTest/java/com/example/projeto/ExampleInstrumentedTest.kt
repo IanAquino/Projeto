@@ -78,11 +78,11 @@ class TestesBaseDados {
         val db = getBdTeste().writableDatabase
         val tabelaPacientes = TabelaPacientes(db)
 
-        val nome = Pacientes(nome = "Alfa")
+        val nome = Pacientes (nome = "Alfa")
         nome.id = inserePaciente(tabelaPacientes, nome)
 
         val cursor = tabelaPacientes.query(
-            TabelaPacientes."",
+            TabelaPacientes.,
             "${BaseColumns._ID}=?",
             arrayOf(nome.id.toString())
             null, null,null
