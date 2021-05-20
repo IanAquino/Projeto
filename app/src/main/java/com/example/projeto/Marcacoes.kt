@@ -11,6 +11,7 @@ data class Marcacoes(var id: Long = -1, var nome: String) {
     }
     companion object{
         fun fromCursor(): Marcacoes{
+            val cursor
             val colId = cursor.getColumnIndex(BaseColumns._ID)
             val colNome = cursor.getColumnIndex(TabelaMarcacoes.CAMPO_NOME_PACIENTE)
             val colNascimento = cursor.getColumnIndex(TabelaMarcacoes.DATA_MARCADA)

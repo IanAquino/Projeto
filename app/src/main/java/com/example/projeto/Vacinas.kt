@@ -1,8 +1,9 @@
 package com.example.projeto
 
 import android.content.ContentValues
+import android.provider.BaseColumns
 
-data class Vacinas(var id: Long = -1, var nome: String) {
+data class Vacinas(var id: Long = -1, var nome: String, val entrada: Any, val saida: Any, val categoria: Any) {
     fun toContentValues(): ContentValues {
         val valores = ContentValues()
         valores.put(TabelaVacinas.CAMPO_NOME, nome)
@@ -10,7 +11,8 @@ data class Vacinas(var id: Long = -1, var nome: String) {
         return valores
     }
     companion object{
-        fun fromCursor(): Pacientes{
+        fun fromCursor(): Vacinas {
+            val cursor
             val colId = cursor.getColumnIndex(BaseColumns._ID)
             val colNome = cursor.getColumnIndex(TabelaVacinas.NOME_TABELA)
             val colEntrada = cursor.getColumnIndex(TabelaVacinas.ENTRADA_VACINAS)

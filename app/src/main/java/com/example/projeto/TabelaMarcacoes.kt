@@ -37,6 +37,7 @@ class TabelaMarcacoes(db: SQLiteDatabase)  {
     }
 
     companion object {
+        const val CAMPO_NOME = "nome"
         const val NOME_TABELA = "marcacoes"
         const val CAMPO_NOME_PACIENTE = "nome"
         const val DATA_MARCADA = "marcacoes"
