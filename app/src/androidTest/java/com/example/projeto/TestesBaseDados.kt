@@ -22,15 +22,17 @@ class TestesBaseDados {
     private fun getAppContext() = InstrumentationRegistry.getInstrumentation().targetContext
     private fun getBdCovid() = BdCovid(getAppContext())
 
-    private fun inserePaciente(tabela: TabelaPacientes, nome: Pacientes, nascimento: Pacientes, contacto: Pacientes): Long {
-        val id = tabela.insert(nome.toContentValues())
+    private fun inserePaciente(tabela: TabelaPacientes, id: Pacientes, nascimento: Pacientes, contacto: Pacientes): Long {
+        val id = tabela.insert(id.toContentValues())
+        val nascimento = tabela.insert(nascimento.toContentValues())
+        val contacto = tabela.insert(contacto.toContentValues())
 
         assertNotEquals(-1, id)
 
         return id
     }
 
-    private fun getPacienteBaseDados(tabela: TabelaPacientes, id: Long): Pacientes {
+    private fun getPacienteBaseDados(tabela: TabelaPacientes, id: Int): Pacientes {
         val cursor = tabela.query(
             TabelaPacientes.TODAS_COLUNAS,
             "${BaseColumns._ID}=?",
@@ -108,15 +110,15 @@ class TestesBaseDados {
         val pacientes = Pacientes (nome = "Alfa")
         pacientes.id = inserePaciente(tabelaPacientes, pacientes)
 
-        val cursor = tabelaPacientes.query(
+        /*val cursor = tabelaPacientes.query(
             TabelaPacientes.TODAS_COLUNAS,
             "${BaseColumns._ID}=?",
             arrayOf(pacientes.id.toString())
             null, null,null
 
-        )
-        assertNotNull(cursor)
-        assert(cursor!!.moveToNext())
+        )*/
+        //assertNotNull(cursor)
+        //assert(cursor!!.moveToNext())
 
         val registosEliminados = tabelaPacientes.delete(
             "${BaseColumns._ID}=?",
