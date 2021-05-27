@@ -32,7 +32,7 @@ class TestesBaseDados {
         return id
     }
 
-    private fun getPacienteBaseDados(tabela: TabelaPacientes, id: Int): Pacientes {
+    private fun getPacienteBaseDados(tabela: TabelaPacientes, id: Long): Pacientes {
         val cursor = tabela.query(
             TabelaPacientes.TODAS_COLUNAS,
             "${BaseColumns._ID}=?",
@@ -58,23 +58,18 @@ class TestesBaseDados {
         db.close()
     }
 
-    @Test
-    fun consegueAbrirBaseDados() {
-        val db = getBdCovid().readableDatabase
-        assert(db.isOpen)
-        db.close()
-    }
+
 
 
     fun consegueInserirPacientes() {
         val db = getBdCovid().writableDatabase
         val tabelaPacientes = TabelaPacientes(db)
 
-        val pacientes = Pacientes (nome = "ALfa")
+        val nome = Pacientes (nome = "ALfa")
         val nascimento = Pacientes (nascimento = 123 )
         val contacto = Pacientes (contacto = 964964)
-        pacientes.id = inserePaciente(tabelaPacientes, pacientes, nascimento, contacto)
-        assertEquals(pacientes, getPacienteBaseDados(tabelaPacientes, pacientes.id))
+        nome.id = inserePaciente(tabelaPacientes, nome, nascimento, contacto)
+        assertEquals(nome, getPacienteBaseDados(tabelaPacientes, nome.id))
 
         db.close()
     }
