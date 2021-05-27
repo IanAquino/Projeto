@@ -20,7 +20,7 @@ import org.junit.Before
 @RunWith(AndroidJUnit4::class)
 class TestesBaseDados {
     private fun getAppContext() = InstrumentationRegistry.getInstrumentation().targetContext
-    private fun getBdTeste() = BdTeste(getAppContext())
+    private fun getBdCovid() = BdCovid(getAppContext())
 
     private fun inserePaciente(tabela: TabelaPacientes, nome: Pacientes, nascimento: Pacientes, contacto: Pacientes): Long {
         val id = tabela.insert(nome.toContentValues())
@@ -30,64 +30,88 @@ class TestesBaseDados {
         return id
     }
 
+    private fun getPacienteBaseDados(tabela: TabelaPacientes, id: Long): Pacientes {
+        val cursor = tabela.query(
+            TabelaPacientes.TODAS_COLUNAS,
+            "${BaseColumns._ID}=?",
+            arrayOf(id.toString()),
+            null, null, null
+        )
+
+        assertNotNull(cursor)
+        assert(cursor!!.moveToNext())
+
+        return Pacientes.fromCursor(cursor)
+    }
+
     @Before
     fun apagaBaseDados() {
-        getAppContext().deleteDatabase(BdTeste.NOME_BASE_DADOS)
+        getAppContext().deleteDatabase(BdCovid.NOME_BASE_DADOS)
     }
 
     @Test
     fun consegueAbrirBaseDados() {
-        val db = getBdTeste().readableDatabase
+        val db = getBdCovid().readableDatabase
         assert(db.isOpen)
         db.close()
     }
 
     @Test
+    fun consegueAbrirBaseDados() {
+        val db = getBdCovid().readableDatabase
+        assert(db.isOpen)
+        db.close()
+    }
+
+
     fun consegueInserirPacientes() {
-        val db = getBdTeste().writableDatabase
+        val db = getBdCovid().writableDatabase
         val tabelaPacientes = TabelaPacientes(db)
 
-        val nome = Pacientes (nome = "ALfa")
+        val pacientes = Pacientes (nome = "ALfa")
         val nascimento = Pacientes (nascimento = 123 )
         val contacto = Pacientes (contacto = 964964)
-        nome.id = inserePaciente(tabelaPacientes, nome, nascimento, contacto)
+        pacientes.id = inserePaciente(tabelaPacientes, pacientes, nascimento, contacto)
+        assertEquals(pacientes, getPacienteBaseDados(tabelaPacientes, pacientes.id))
 
         db.close()
     }
 
     @Test
     fun consegueAlterarPacientes() {
-        val db = getBdTeste().writableDatabase
+        val db = getBdCovid().writableDatabase
         val tabelaPacientes = TabelaPacientes(db)
 
-        val nome = Pacientes (nome = "Beta")
-        nome.id = inserePaciente(tabelaPacientes, nome)
+        val pacientes = Pacientes (nome = "Beta")
+        pacientes.id = inserePaciente(tabelaPacientes, pacientes)
 
-        nome.nome = "Pedro"
+        pacientes.nome = "Pedro"
 
         val registosAlterados = tabelaPacientes.update(
-            nome.toContentValues(),
+            pacientes.toContentValues(),
             "${BaseColumns._ID}=?",
-            arrayOf(nome.id.toString())
+            arrayOf(pacientes.id.toString())
         )
 
         assertEquals(1, registosAlterados)
+
+        assertEquals(pacientes, getPacienteBaseDados(tabelaPacientes, pacientes.id))
 
         db.close()
     }
 
     @Test
     fun consegueEliminarPacientes() {
-        val db = getBdTeste().writableDatabase
+        val db = getBdCovid().writableDatabase
         val tabelaPacientes = TabelaPacientes(db)
 
-        val nome = Pacientes (nome = "Alfa")
-        nome.id = inserePaciente(tabelaPacientes, nome)
+        val pacientes = Pacientes (nome = "Alfa")
+        pacientes.id = inserePaciente(tabelaPacientes, pacientes)
 
         val cursor = tabelaPacientes.query(
-            TabelaPacientes.,tabelaPacientes
+            TabelaPacientes.TODAS_COLUNAS,
             "${BaseColumns._ID}=?",
-            arrayOf(nome.id.toString())
+            arrayOf(pacientes.id.toString())
             null, null,null
 
         )
@@ -96,13 +120,22 @@ class TestesBaseDados {
 
         val registosEliminados = tabelaPacientes.delete(
             "${BaseColumns._ID}=?",
-            arrayOf(nome.id.toString())
+            arrayOf(pacientes.id.toString())
         )
 
-
-
-
         assertEquals(1, registosEliminados)
+
+        db.close()
+    }
+    @Test
+    fun consegueLerPacientes() {
+        val db = getBdCovid().writableDatabase
+        val tabelaPacientes = TabelaPacientes(db)
+
+        val pacientes = Pacientes(nome = "Aventura")
+        pacientes.id = inserePaciente(tabelaPacientes, pacientes)
+
+        assertEquals(pacientes, getPacienteBaseDados(tabelaPacientes, pacientes.id))
 
         db.close()
     }

@@ -46,6 +46,7 @@ class TabelaPacientes(db: SQLiteDatabase)  {
             const val MORADA = "morada"
             const val NIF = "nif"
             const val ESTADO = "estado"
+            val TODAS_COLUNAS = arrayOf(BaseColumns._ID, CAMPO_NOME)
 
 
         }
