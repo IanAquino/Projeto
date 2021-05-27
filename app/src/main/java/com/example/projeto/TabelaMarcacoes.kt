@@ -10,7 +10,7 @@ class TabelaMarcacoes(db: SQLiteDatabase)  {
     private val db: SQLiteDatabase = db
 
     fun cria() {
-        db.execSQL("CREATE TABLE $NOME_TABELA (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, $CAMPO_NOME TEXT NOT NULL)")
+        db.execSQL("CREATE TABLE $NOME_TABELA (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, $CAMPO_NOME TEXT NOT NULL, $DOSES INT NOT NULL, $DATA DATETIME NOT NULL, ID_PACIENTES integer, CONSTRAINT fk_TabelaPacientes FOREIGN KEY(ID_PACIENTES) REFERENCES TabelaPacientes(ID_PACIENTES))")
     }
 
     fun insert(values: ContentValues): Long {
@@ -39,9 +39,9 @@ class TabelaMarcacoes(db: SQLiteDatabase)  {
     companion object {
         const val CAMPO_NOME = "nome"
         const val NOME_TABELA = "marcacoes"
-        const val CAMPO_NOME_PACIENTE = "nome"
-        const val DATA_MARCADA = "marcacoes"
-        const val CAMPO_IDADE = "idade"
+        const val DOSES = "doses"
+        const val DATA = "data"
+
 
     }
 }
