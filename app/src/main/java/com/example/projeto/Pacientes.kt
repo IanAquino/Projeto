@@ -3,9 +3,11 @@ package com.example.projeto
 import android.content.ContentValues
 import android.database.Cursor
 import android.provider.BaseColumns
+import java.util.*
 
-data class Pacientes(var id: Long = -1, var nome: String, var nascimento: Int, var contacto: Int) {
+data class Pacientes (var id: Long = -1, var nome: String, var nascimento: Int, var contacto: Int) {
     fun toContentValues(): ContentValues {
+
         val valores = ContentValues()
         valores.put(TabelaPacientes.CAMPO_NOME, nome)
 
