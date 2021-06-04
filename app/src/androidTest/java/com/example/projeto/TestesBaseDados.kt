@@ -18,25 +18,31 @@ import org.junit.Before
 @RunWith(AndroidJUnit4::class)
 class TestesBaseDados {
     private fun getAppContext() = InstrumentationRegistry.getInstrumentation().targetContext
-    private fun getBdLivrosOpenHelper() = BdCovid(getAppContext())
+    private fun getBdCovidOpenHelper() = BdCovid(getAppContext())
 
-    private fun insereCategoria(tabela: TabelaMarcacoes, categoria: Marcacao): Long {
-        val id = tabela.insert(categoria.toContentValues())
+    private fun insereMarcacoes(tabela: TabelaMarcacoes, marcacoes: Marcacoes): Long {
+        val id = tabela.insert(marcacoes.toContentValues())
         assertNotEquals(-1, id)
 
         return id
     }
 
-    private fun insereLivro(tabela: TabelaLivros, livro: Livro): Long {
-        val id = tabela.insert(livro.toContentValues())
+    private fun inserePacientes(tabela: TabelaPacientes, pacientes: Pacientes): Long {
+        val id = tabela.insert(pacientes.toContentValues())
+        assertNotEquals(-1, id)
+
+        return id
+    }
+    private fun insereVacina(tabela: TabelaVacinas, vacinas: Vacinas): Long {
+        val id = tabela.insert(vacinas.toContentValues())
         assertNotEquals(-1, id)
 
         return id
     }
 
-    private fun getCategoriaBaseDados(tabela: TabelaCategorias, id: Long): Categoria {
+    private fun getMarcacoesBaseDados(tabela: TabelaMarcacoes, id: Long): Marcacoes {
         val cursor = tabela.query(
-            TabelaCategorias.TODAS_COLUNAS,
+            TabelaMarcacoes.TODAS_COLUNAS,
             "${BaseColumns._ID}=?",
             arrayOf(id.toString()),
             null, null, null
@@ -45,12 +51,12 @@ class TestesBaseDados {
         assertNotNull(cursor)
         assert(cursor!!.moveToNext())
 
-        return Categoria.fromCursor(cursor)
+        return Marcacoes().fromCursor(cursor)
     }
 
-    private fun getLivroBaseDados(tabela: TabelaLivros, id: Long): Livro {
+    private fun getVacinasBaseDados(tabela: TabelaVacinas, id: Long): Vacinas {
         val cursor = tabela.query(
-            TabelaLivros.TODAS_COLUNAS,
+            TabelaVacinas.TODAS_COLUNAS,
             "${BaseColumns._ID}=?",
             arrayOf(id.toString()),
             null, null, null
@@ -59,68 +65,81 @@ class TestesBaseDados {
         assertNotNull(cursor)
         assert(cursor!!.moveToNext())
 
-        return Livro.fromCursor(cursor)
+        return Vacinas.fromCursor(cursor)
+    }
+    private fun getPacientesBaseDados(tabela: TabelaPacientes, id: Long): Pacientes {
+        val cursor = tabela.query(
+            TabelaPacientes.TODAS_COLUNAS,
+            "${BaseColumns._ID}=?",
+            arrayOf(id.toString()),
+            null, null, null
+        )
+
+        assertNotNull(cursor)
+        assert(cursor!!.moveToNext())
+
+        return Pacientes.fromCursor(cursor)
     }
 
     @Before
     fun apagaBaseDados() {
-        getAppContext().deleteDatabase(BdLivrosOpenHelper.NOME_BASE_DADOS)
+        getAppContext().deleteDatabase(BdCovid.NOME_BASE_DADOS)
     }
 
     @Test
     fun consegueAbrirBaseDados() {
-        val db = getBdLivrosOpenHelper().readableDatabase
+        val db = getBdCovidOpenHelper().readableDatabase
         assert(db.isOpen)
         db.close()
     }
 
     @Test
-    fun consegueInserirCategorias() {
-        val db = getBdLivrosOpenHelper().writableDatabase
-        val tabelaCategorias = TabelaCategorias(db)
+    fun consegueInserirMarcacoes() {
+        val db = getBdCovidOpenHelper().writableDatabase
+        val tabelaMarcacoes = TabelaMarcacoes(db)
 
-        val categoria = Categoria(nome = "Drama")
-        categoria.id = insereCategoria(tabelaCategorias, categoria)
+        val marcacoes = Marcacoes(nome = "DIA D")
+        marcacoes.id = insereMarcacoes(tabelaMarcacoes, marcacoes)
 
-        assertEquals(categoria, getCategoriaBaseDados(tabelaCategorias, categoria.id))
+        assertEquals(marcacoes, getMarcacoesBaseDados(tabelaMarcacoes, marcacoes.id))
 
         db.close()
     }
 
     @Test
-    fun consegueAlterarCategorias() {
-        val db = getBdLivrosOpenHelper().writableDatabase
-        val tabelaCategorias = TabelaCategorias(db)
+    fun consegueAlterarMarcacoes() {
+        val db = getBdCovidOpenHelper().writableDatabase
+        val tabelaMarcacoes = TabelaMarcacoes(db)
 
-        val categoria = Categoria(nome = "sci")
-        categoria.id = insereCategoria(tabelaCategorias, categoria)
+        val marcacoes = Marcacoes(nome = "DIA D")
+        marcacoes.id = insereMarcacoes(tabelaMarcacoes, marcacoes)
 
-        categoria.nome = "Ficção científica"
+        marcacoes.nome = "Dia 12"
 
-        val registosAlterados = tabelaCategorias.update(
-            categoria.toContentValues(),
+        val registosAlterados = tabelaMarcacoes.update(
+            marcacoes.toContentValues(),
             "${BaseColumns._ID}=?",
-            arrayOf(categoria.id.toString())
+            arrayOf(marcacoes.id.toString())
         )
 
         assertEquals(1, registosAlterados)
 
-        assertEquals(categoria, getCategoriaBaseDados(tabelaCategorias, categoria.id))
+        assertEquals(marcacoes, getMarcacoesBaseDados(tabelaMarcacoes, marcacoes.id))
 
         db.close()
     }
 
     @Test
-    fun consegueEliminarCategorias() {
-        val db = getBdLivrosOpenHelper().writableDatabase
-        val tabelaCategorias = TabelaCategorias(db)
+    fun consegueEliminarMarcacoes() {
+        val db = getBdCovidOpenHelper().writableDatabase
+        val tabelaMarcacoes = TabelaMarcacoes(db)
 
-        val categoria = Categoria(nome = "teste")
-        categoria.id = insereCategoria(tabelaCategorias, categoria)
+        val marcacoes = Marcacoes(nome = "Dia 12")
+        marcacoes.id = insereMarcacoes(tabelaMarcacoes, marcacoes)
 
-        val registosEliminados = tabelaCategorias.delete(
+        val registosEliminados = tabelaMarcacoes.delete(
             "${BaseColumns._ID}=?",
-            arrayOf(categoria.id.toString())
+            arrayOf(marcacoes.id.toString())
         )
 
         assertEquals(1, registosEliminados)
@@ -129,21 +148,21 @@ class TestesBaseDados {
     }
 
     @Test
-    fun consegueLerCategorias() {
-        val db = getBdLivrosOpenHelper().writableDatabase
-        val tabelaCategorias = TabelaCategorias(db)
+    fun consegueLerMarcacoes() {
+        val db = getBdCovidOpenHelper().writableDatabase
+        val tabelaMarcacoes = TabelaMarcacoes(db)
 
-        val categoria = Categoria(nome = "Aventura")
-        categoria.id = insereCategoria(tabelaCategorias, categoria)
+        val marcacoes = Marcacoes(nome = "Dia 12")
+        marcacoes.id = insereMarcacoes(tabelaMarcacoes, marcacoes)
 
-        assertEquals(categoria, getCategoriaBaseDados(tabelaCategorias, categoria.id))
+        assertEquals(marcacoes, getMarcacoesBaseDados(tabelaMarcacoes, marcacoes.id))
 
         db.close()
     }
 
     @Test
     fun consegueInserirLivros() {
-        val db = getBdLivrosOpenHelper().writableDatabase
+        val db = getBdCovidOpenHelper().writableDatabase
 
         val tabelaCategorias = TabelaCategorias(db)
         val categoria = Categoria(nome = "Aventura")
