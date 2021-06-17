@@ -16,11 +16,12 @@ import org.junit.Before
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class TestesBaseDados {
+data class TestesBaseDados {
     private fun getAppContext() = InstrumentationRegistry.getInstrumentation().targetContext
     private fun getBdCovidOpenHelper() = BdCovid(getAppContext())
 
     private fun insereMarcacoes(tabela: TabelaMarcacoes, marcacoes: Marcacoes): Long {
+        val db = getBdCovidOpenHelper().writableDatabase
         val id = tabela.insert(marcacoes.toContentValues())
         assertNotEquals(-1, id)
 
@@ -28,12 +29,14 @@ class TestesBaseDados {
     }
 
     private fun inserePacientes(tabela: TabelaPacientes, pacientes: Pacientes): Long {
+        val db = getBdCovidOpenHelper().writableDatabase
         val id = tabela.insert(pacientes.toContentValues())
         assertNotEquals(-1, id)
 
         return id
     }
     private fun insereVacina(tabela: TabelaVacinas, vacinas: Vacinas): Long {
+        val db = getBdCovidOpenHelper().writableDatabase
         val id = tabela.insert(vacinas.toContentValues())
         assertNotEquals(-1, id)
 
@@ -51,7 +54,7 @@ class TestesBaseDados {
         assertNotNull(cursor)
         assert(cursor!!.moveToNext())
 
-        return Marcacoes().fromCursor(cursor)
+        return Marcacoes.fromCursor(cursor)
     }
 
     private fun getVacinasBaseDados(tabela: TabelaVacinas, id: Long): Vacinas {
@@ -98,7 +101,7 @@ class TestesBaseDados {
         val db = getBdCovidOpenHelper().writableDatabase
         val tabelaMarcacoes = TabelaMarcacoes(db)
 
-        val marcacoes = Marcacoes(nome = "DIA D")
+        val marcacoes = Marcacoes(nome = "DIA D", )
         marcacoes.id = insereMarcacoes(tabelaMarcacoes, marcacoes)
 
         assertEquals(marcacoes, getMarcacoesBaseDados(tabelaMarcacoes, marcacoes.id))

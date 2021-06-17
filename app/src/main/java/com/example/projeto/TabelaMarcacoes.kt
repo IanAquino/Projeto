@@ -43,7 +43,7 @@ class TabelaMarcacoes(db: SQLiteDatabase)  {
         const val DATA = "data"
         const val CAMPO_ID_PACIENTE = "id_paciente"
         const val CAMPO_ID_VACINA = "id_vacina"
-
+        val TODAS_COLUNAS = arrayOf(BaseColumns._ID, TabelaPacientes.CAMPO_NOME)
 
     }
 }
