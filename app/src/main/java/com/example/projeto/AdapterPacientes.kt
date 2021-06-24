@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.w3c.dom.DocumentFragment
 
-class AdapterPacientes(val fragment: ListaPacientesFragment) : RecyclerView.Adapter<AdapterPacientes.ViewHolderPacientes>() {
+class AdapterPacientes(val fragment: ListaPacienteFragment) : RecyclerView.Adapter<AdapterPacientes.ViewHolderPaciente>() {
     public var cursor: Cursor? = null
         get() = field
         set(value) {
@@ -20,18 +20,18 @@ class AdapterPacientes(val fragment: ListaPacientesFragment) : RecyclerView.Adap
         private val textViewNif = itemView.findViewById<TextView>(R.id.textViewNif)
         private val textViewEstado = itemView.findViewById<TextView>(R.id.textViewEstado)
 
-        private lateinit var pacientes: AdapterPacientes
+        private lateinit var paciente: AdapterPaciente
 
         init {
             itemView.setOnClickListener(this)
         }
 
         fun atualizaPacientes(pacientes: Pacientes) {
-            this.pacientes = pacientes
+            this.paciente = paciente
 
-            textViewNome.text = pacientes.nome
-            textViewNif.text = pacientes.nif
-            textViewEstado.text = pacientes.estado
+            textViewNome.text = paciente.nome
+            textViewNif.text = paciente.nif
+            textViewEstado.text = paciente.estado
         }
 
         /**
@@ -47,8 +47,8 @@ class AdapterPacientes(val fragment: ListaPacientesFragment) : RecyclerView.Adap
         private fun seleciona() {
             selecionado = this
             itemView.setBackgroundResource(R.color.cor_selecao)
-            DadosApp.pacienteSelecionado = pacientes
-            DadosApp.activity.atualizaMenuListaPacientes(true)
+            DadosApp.pacienteSelecionado = paciente
+            DadosApp.activity.atualizaMenuListaPaciente(true)
         }
 
         private fun desSeleciona() {
@@ -57,7 +57,7 @@ class AdapterPacientes(val fragment: ListaPacientesFragment) : RecyclerView.Adap
         }
 
         companion object {
-            var selecionado : ViewHolderLivro? = null
+            var selecionado : ViewHolderPaciente? = null
         }
     }
 
@@ -84,10 +84,10 @@ class AdapterPacientes(val fragment: ListaPacientesFragment) : RecyclerView.Adap
      * @see .getItemViewType
      * @see .onBindViewHolder
      */
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderLivro {
-        val itemLivro = fragment.layoutInflater.inflate(R.layout.item_livro, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderPaciente {
+        val itemLivro = fragment.layoutInflater.inflate(R.layout.item_paciente, parent, false)
 
-        return ViewHolderLivro(itemLivro)
+        return ViewHolderPaciente(itemLivro)
     }
 
     /**
@@ -111,9 +111,9 @@ class AdapterPacientes(val fragment: ListaPacientesFragment) : RecyclerView.Adap
      * item at the given position in the data set.
      * @param position The position of the item within the adapter's data set.
      */
-    override fun onBindViewHolder(holder: ViewHolderLivro, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolderPaciente, position: Int) {
         cursor!!.moveToPosition(position)
-        holder.atualizaLivro(Livro.fromCursor(cursor!!))
+        holder.atualizaPacientes(Pacientes.fromCursor(cursor!!))
     }
 
     /**

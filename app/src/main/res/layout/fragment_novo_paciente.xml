@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".NovoLivroFragment" >
+    tools:context=".NovoPacienteFragment" >
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:id="@+id/editTextTitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/titulo"
+            android:hint="@string/nome"
             android:inputType="textLongMessage|textAutoComplete" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margem_campos"
-                android:hint="@string/autor"
+                android:hint="@string/nif"
                 android:inputType="textPersonName" />
 
             <TextView
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margem_campos"
-                android:text="@string/categoria" />
+                android:text="@string/estado" />
 
             <Spinner
                 android:id="@+id/spinnerCategorias"

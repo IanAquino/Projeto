@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Projeto</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="lista_pacientes_fragment_label">Livros</string>
+    <string name="novo_pacientes_fragment_label">Novo livro</string>
+
+    <string name="novo_paciente">Novo livro</string>
+    <string name="alterar_paciente">Alterar livro</string>
+    <string name="eliminar_paciente">Eliminar livro</string>
+    <string name="nome">Título</string>
+    <string name="nif">Autor</string>
+    <string name="estado">Categoria</string>
+    <string name="guardar">Guardar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="versao">Livros v. 1.0</string>
+    <string name="preencha_nome">Preencha o título</string>
+    <string name="preencha_nif">Preencha o autor</string>
+    <string name="erro_inserir_paciente">Erro ao inserir livro</string>
 </resources>

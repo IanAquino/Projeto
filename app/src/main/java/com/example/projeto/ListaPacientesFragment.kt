@@ -7,26 +7,21 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.SimpleCursorAdapter
-import android.widget.Spinner
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
-import pt.ipg.livros.databinding.FragmentFirstBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.projeto.databinding.FragmentListaPacientesBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class NovoPacienteFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
+class ListaPacientesFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
-    private var _binding: FragmentNovoPacienteBinding? = null
-
-    private lateinit var editTextNome: EditText
-    private lateinit var editTextNif: EditText
-    private lateinit var spinnerEstado: Spinner
+    private var _binding: FragmentListaPacientesBinding? = null
+    private var adapterPacientes : AdapterPacientes? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -36,75 +31,51 @@ class NovoPacienteFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        DadosApp.novoPacienteFragment = this
-        (activity as MainActivity).menuAtual = R.menu.menu_novo_paciente
+        DadosApp.listaPacienteFragment = this
+        (activity as MainActivity).menuAtual = R.menu.menu_lista_pacientes
 
-        _binding = FragmentNovoPacienteBinding.inflate(inflater, container, false)
+        _binding = FragmentListaPacientesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        editTextNome = view.findViewById(R.id.editTextTitulo)
-        editTextNif = view.findViewById(R.id.editTextAutor)
-        spinnerEstado = view.findViewById(R.id.spinnerCategorias)
+        val recyclerViewPacientes = view.findViewById<RecyclerView>(R.id.recyclerViewPacientes)
+        adapterPacientes = AdapterPacientes(this)
+        recyclerViewPacientes.adapter = adapterPacientes
+        recyclerViewPacientes.layoutManager = LinearLayoutManager(requireContext())
 
         LoaderManager.getInstance(this)
-            .initLoader(ID_LOADER_MANAGER_CATEGORIAS, null, this)
+            .initLoader(ID_LOADER_MANAGER_PACIENTES, null, this)
+    }
+
+    fun navegaNovoPaciente() {
+        findNavController().navigate(R.id.action_ListaPacientesFragment_to_NovoPacienteFragment)
+    }
+
+    fun navegaAlterarPaciente() {
+        //todo: navegar para o fragmento da edição de um livro
+    }
+
+    fun navegaEliminarPaciente() {
+        //todo: navegar para o fragmento para confirmar eliminação de um livro
+    }
+
+    fun processaOpcaoMenu(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_novo_paciente -> navegaNovoPaciente()
+            R.id.action_alterar_paciente -> navegaAlterarPaciente()
+            R.id.action_eliminar_paciente -> navegaEliminarPaciente()
+            else -> return false
+        }
+
+        return true
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    fun navegaListaPacientes() {
-        findNavController().navigate(R.id.action_NovoPacienteFragment_to_ListaPacientesFragment)
-    }
-
-    fun guardar() {
-        val titulo = editTextNome.text.toString()
-        if (titulo.isEmpty()) {
-            editTextNome.setError(getString(R.string.preencha_nome))
-            return
-        }
-
-        val autor = editTextNif.text.toString()
-        if (autor.isEmpty()) {
-            editTextNif.setError(getString(R.string.preencha_nif))
-            return
-        }
-
-        val idEstado = spinnerEstado.selectedItemId
-
-        val pacientes = Pacientes(nome = nome, nif = nif, idEstado = idEstado)
-
-        val uri = activity?.contentResolver?.insert(
-            ContentProviderVacinas.ENDERECO_PACIENTES,
-            pacientes.toContentValues()
-        )
-
-        if (uri == null) {
-            Snackbar.make(
-                editTextNome,
-                getString(getString(R.string.preencha_nome)),
-                Snackbar.LENGTH_LONG
-            ).show()
-            return
-        }
-
-        navegaListaPacientes()
-    }
-
-    fun processaOpcaoMenu(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_guardar_novo_livro -> guardar()
-            R.id.action_cancelar_novo_livro -> navegaListaLivros()
-            else -> return false
-        }
-
-        return true
     }
 
     /**
@@ -120,10 +91,10 @@ class NovoPacienteFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
         return CursorLoader(
             requireContext(),
-            ContentProviderLivros.ENDERECO_CATEGORIAS,
-            TabelaCategorias.TODAS_COLUNAS,
+            ContentProviderVacinas.ENDERECO_PACIENTES,
+            TabelaPacientes.TODAS_COLUNAS,
             null, null,
-            TabelaCategorias.CAMPO_NOME
+            TabelaPacientes.CAMPO_NOME
         )
     }
 
@@ -171,7 +142,7 @@ class NovoPacienteFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
      * @param data The data generated by the Loader.
      */
     override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor?) {
-        atualizaSpinnerCategorias(data)
+        adapterPacientes!!.cursor = data
     }
 
     /**
@@ -185,21 +156,10 @@ class NovoPacienteFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
      * @param loader The Loader that is being reset.
      */
     override fun onLoaderReset(loader: Loader<Cursor>) {
-        atualizaSpinnerCategorias(null)
-    }
-
-    private fun atualizaSpinnerCategorias(data: Cursor?) {
-        spinnerCategorias.adapter = SimpleCursorAdapter(
-            requireContext(),
-            android.R.layout.simple_list_item_1,
-            data,
-            arrayOf(TabelaCategorias.CAMPO_NOME),
-            intArrayOf(android.R.id.text1),
-            0
-        )
+        adapterPacientes!!.cursor = null
     }
 
     companion object {
-        const val ID_LOADER_MANAGER_CATEGORIAS = 0
+        const val ID_LOADER_MANAGER_PACIENTES = 0
     }
 }

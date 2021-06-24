@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/ListaLivrosFragment">
+    app:startDestination="@id/ListaPacientesFragment">
 
     <fragment
-        android:id="@+id/ListaLivrosFragment"
-        android:name="pt.ipg.livros.ListaLivrosFragment"
-        android:label="@string/lista_livros_fragment_label"
-        tools:layout="@layout/fragment_lista_livros">
+        android:id="@+id/ListaPacientesFragment"
+        android:name="com.example.projeto.ListaPacientesFragment"
+        android:label="@string/lista_pacientes_fragment_label"
+        tools:layout="@layout/fragment_lista_pacientes">
 
         <action
-            android:id="@+id/action_ListaLivrosFragment_to_NovoLivroFragment"
-            app:destination="@id/NovoLivroFragment" />
+            android:id="@+id/action_ListaPacientesFragment_to_NovoPacienteFragment"
+            app:destination="@id/NovoPacienteFragment" />
     </fragment>
     <fragment
-        android:id="@+id/NovoLivroFragment"
-        android:name="pt.ipg.livros.NovoLivroFragment"
-        android:label="@string/novo_livro_fragment_label"
-        tools:layout="@layout/fragment_novo_livro">
+        android:id="@+id/NovoPacienteFragment"
+        android:name="com.example.projeto.NovoPacienteFragment"
+        android:label="@string/novo_pacientes_fragment_label"
+        tools:layout="@layout/fragment_novo_paciente">
 
         <action
-            android:id="@+id/action_NovoLivroFragment_to_ListaLivrosFragment"
-            app:destination="@id/ListaLivrosFragment" />
+            android:id="@+id/action_NovoPacienteFragment_to_ListaPacientesFragment"
+            app:destination="@id/ListaPacientesFragment" />
     </fragment>
 </navigation>
