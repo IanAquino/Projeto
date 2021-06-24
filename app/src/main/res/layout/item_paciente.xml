@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toStartOf="@+id/textViewCategoria"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="O Leão que Temos Cá Dentro" />
+        tools:text="" />
 
     <TextView
         android:id="@+id/textViewAutor"
@@ -30,7 +30,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintStart_toStartOf="@+id/textViewTitulo"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitulo"
-        tools:text="Rachel Bright" />
+        tools:text="" />
 
     <TextView
         android:id="@+id/textViewCategoria"
@@ -43,5 +43,5 @@
         android:textColor="@color/cor_destaque"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Aventura" />
+        tools:text="" />
 </androidx.constraintlayout.widget.ConstraintLayout>

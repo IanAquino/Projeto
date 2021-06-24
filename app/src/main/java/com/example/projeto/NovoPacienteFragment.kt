@@ -15,7 +15,6 @@ import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.example.projeto.databinding.FragmentFirstBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -46,8 +45,8 @@ class NovoPacienteFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        editTextNome = view.findViewById(R.id.editTextTitulo)
-        editTextNif = view.findViewById(R.id.editTextAutor)
+        editTextNome = view.findViewById(R.id.editTextNome)
+        editTextNif = view.findViewById(R.id.editTextNif)
         spinnerEstado = view.findViewById(R.id.spinnerCategorias)
 
         LoaderManager.getInstance(this)
