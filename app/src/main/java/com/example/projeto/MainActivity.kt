@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         this.menu = menu
 
         if (menuAtual == R.menu.menu_lista_pacientes) {
-            atualizaMenuListaLivros(false)
+            atualizaMenuListaPacientes(false)
         }
 
         return true
@@ -80,8 +80,8 @@ class MainActivity : AppCompatActivity() {
                 || super.onSupportNavigateUp()
     }
 
-    fun atualizaMenuListaLivros(mostraBotoesAlterarEliminar : Boolean) {
-        menu.findItem(R.id.action_alterar_livro).setVisible(mostraBotoesAlterarEliminar)
-        menu.findItem(R.id.action_eliminar_livro).setVisible(mostraBotoesAlterarEliminar)
+    fun atualizaMenuListaPacientes(mostraBotoesAlterarEliminar : Boolean) {
+        menu.findItem(R.id.action_alterar_paciente).setVisible(mostraBotoesAlterarEliminar)
+        menu.findItem(R.id.action_eliminar_paciente).setVisible(mostraBotoesAlterarEliminar)
     }
 }

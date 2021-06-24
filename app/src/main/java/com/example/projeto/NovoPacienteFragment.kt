@@ -15,7 +15,7 @@ import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import pt.ipg.livros.databinding.FragmentFirstBinding
+import com.example.projeto.databinding.FragmentFirstBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -99,8 +99,8 @@ class NovoPacienteFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
     fun processaOpcaoMenu(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_guardar_novo_livro -> guardar()
-            R.id.action_cancelar_novo_livro -> navegaListaLivros()
+            R.id.action_guardar_novo_paciente -> guardar()
+            R.id.action_cancelar_novo_paciente -> navegaListaPacientes()
             else -> return false
         }
 
@@ -120,10 +120,10 @@ class NovoPacienteFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
         return CursorLoader(
             requireContext(),
-            ContentProviderLivros.ENDERECO_CATEGORIAS,
-            TabelaCategorias.TODAS_COLUNAS,
+            ContentProviderVacinas.ENDERECO_PACIENTES,
+            TabelaPacientes.TODAS_COLUNAS,
             null, null,
-            TabelaCategorias.CAMPO_NOME
+            TabelaPacientes.CAMPO_NOME
         )
     }
 

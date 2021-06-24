@@ -85,9 +85,9 @@ class AdapterPacientes(val fragment: ListaPacienteFragment) : RecyclerView.Adapt
      * @see .onBindViewHolder
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderPaciente {
-        val itemLivro = fragment.layoutInflater.inflate(R.layout.item_paciente, parent, false)
+        val itemPaciente = fragment.layoutInflater.inflate(R.layout.item_paciente, parent, false)
 
-        return ViewHolderPaciente(itemLivro)
+        return ViewHolderPaciente(itemPaciente)
     }
 
     /**
