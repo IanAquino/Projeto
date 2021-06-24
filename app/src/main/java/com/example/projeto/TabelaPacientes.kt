@@ -50,16 +50,16 @@ class TabelaPacientes(db: SQLiteDatabase)  {
 
 
         }
-    var colunas = ""
+   /* var colunas = ""
         for (i in 0..ultimaColuna){
             if (i > 0) colunas += ","
-            colunas += if (i == posColNomeCategoria){
+            colunas += if (i == posColNomePaciente){
                 "${TabelaMarcacoes.NOME_TABELA}.${columns[i]}"
             }else{
 
         }
     val tabelas = "$NOME_TABELA INNER JOIN ${TabelaMarcacoes.NOME_TABELA} ON ${TabelaMarcacoes.NOME_TABELA}.${BaseColumns._ID}=$CAMPO_ID_MARCACOES "
-    }
+    }*/
 
 
 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/ListaLivrosFragment">
+
+    <fragment
+        android:id="@+id/ListaLivrosFragment"
+        android:name="pt.ipg.livros.ListaLivrosFragment"
+        android:label="@string/lista_livros_fragment_label"
+        tools:layout="@layout/fragment_lista_livros">
+
+        <action
+            android:id="@+id/action_ListaLivrosFragment_to_NovoLivroFragment"
+            app:destination="@id/NovoLivroFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/NovoLivroFragment"
+        android:name="pt.ipg.livros.NovoLivroFragment"
+        android:label="@string/novo_livro_fragment_label"
+        tools:layout="@layout/fragment_novo_livro">
+
+        <action
+            android:id="@+id/action_NovoLivroFragment_to_ListaLivrosFragment"
+            app:destination="@id/ListaLivrosFragment" />
+    </fragment>
+</navigation>
