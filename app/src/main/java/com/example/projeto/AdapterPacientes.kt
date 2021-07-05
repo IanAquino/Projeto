@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.w3c.dom.DocumentFragment
 
-class AdapterPacientes(val fragment: ListaPacienteFragment) : RecyclerView.Adapter<AdapterPacientes.ViewHolderPaciente>() {
+class AdapterPacientes(val fragment: ListaPacientesFragment) : RecyclerView.Adapter<AdapterPacientes.ViewHolderPaciente>() {
     public var cursor: Cursor? = null
         get() = field
         set(value) {
@@ -18,9 +18,9 @@ class AdapterPacientes(val fragment: ListaPacienteFragment) : RecyclerView.Adapt
     class ViewHolderPaciente(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         private val textViewNome = itemView.findViewById<TextView>(R.id.textViewNome)
         private val textViewNif = itemView.findViewById<TextView>(R.id.textViewNif)
-        private val textViewEstado = itemView.findViewById<TextView>(R.id.textViewEstado)
+        private val textViewEstado = itemView.findViewById<TextView>(R.id.textViewNascimento)
 
-        private lateinit var paciente: AdapterPaciente
+        private lateinit var paciente: Pacientes
 
         init {
             itemView.setOnClickListener(this)
@@ -30,8 +30,8 @@ class AdapterPacientes(val fragment: ListaPacienteFragment) : RecyclerView.Adapt
             this.paciente = paciente
 
             textViewNome.text = paciente.nome
-            textViewNif.text = paciente.nif
-            textViewEstado.text = paciente.estado
+            textViewNif.text = paciente.nif.toString()
+            textViewEstado.text = paciente.nascimento.toString()
         }
 
         /**
@@ -48,7 +48,7 @@ class AdapterPacientes(val fragment: ListaPacienteFragment) : RecyclerView.Adapt
             selecionado = this
             itemView.setBackgroundResource(R.color.cor_selecao)
             DadosApp.pacienteSelecionado = paciente
-            DadosApp.activity.atualizaMenuListaPaciente(true)
+            DadosApp.activity.atualizaMenuListaPacientes(true)
         }
 
         private fun desSeleciona() {

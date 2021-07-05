@@ -34,7 +34,7 @@ class ListaPacientesFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>
         DadosApp.listaPacienteFragment = this
         (activity as MainActivity).menuAtual = R.menu.menu_lista_pacientes
 
-        _binding = FragmentListaPacientesBinding.inflate(inflater, container, false)
+        _binding = ListaPacientesFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 

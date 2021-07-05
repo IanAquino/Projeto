@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".NovoPacienteFragment" >
+    tools:context="NovoPacienteFragment" >
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/margem_ecran">
+        android:layout_margin="@dimen/margin">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextNome"

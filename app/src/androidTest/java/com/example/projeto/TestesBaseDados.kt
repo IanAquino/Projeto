@@ -164,39 +164,42 @@ data class TestesBaseDados {
     }
 
     @Test
-    fun consegueInserirLivros() {
+    fun consegueInserirPacientes() {
         val db = getBdCovidOpenHelper().writableDatabase
 
-        val tabelaCategorias = TabelaCategorias(db)
-        val categoria = Categoria(nome = "Aventura")
-        categoria.id = insereCategoria(tabelaCategorias, categoria)
+        val tabelaPacientes = TabelaPacientes(db)
+        val pacientes = Pacientes(nome = "joao")
+        pacientes.id = inserePacientes(tabelaPacientes, pacientes)
 
-        val tabelaLivros = TabelaLivros(db)
+        /*val tabelaLivros = Tabela(db)
         val livro = Livro(titulo = "O Leão que Temos Cá Dentro", autor = "Rachel Bright", idCategoria = categoria.id)
         livro.id = insereLivro(tabelaLivros, livro)
 
-        assertEquals(livro, getLivroBaseDados(tabelaLivros, livro.id))
+        assertEquals(livro, getLivroBaseDados(tabelaLivros, livro.id))*/
 
         db.close()
     }
 
     @Test
-    fun consegueAlterarLivros() {
-        val db = getBdLivrosOpenHelper().writableDatabase
+    fun consegueAlterarPacientes() {
+        val db = getBdCovidOpenHelper().writableDatabase
 
-        val tabelaCategorias = TabelaCategorias(db)
+        val tabelaPacientes = TabelaPacientes(db)
 
-        val categoriaSuspense = Categoria(nome = "Suspense")
-        categoriaSuspense.id = insereCategoria(tabelaCategorias, categoriaSuspense)
+        val pacientesNome = Pacientes (nome = "Pedro")
+        pacientesNome.id = inserePacientes(tabelaPacientes, pacientesNome)
 
-        val categoriaMisterio = Categoria(nome = "Mistério")
-        categoriaMisterio.id = insereCategoria(tabelaCategorias, categoriaMisterio)
+        val pacientesData = Pacientes(nascimento = 2020-26-06)
+        pacientesData.id = inserePacientes(tabelaPacientes, pacientesData)
 
-        val tabelaLivros = TabelaLivros(db)
-        val livro = Livro(titulo = "?", autor = "?", idCategoria = categoriaSuspense.id)
+        val pacientesContacto = Pacientes(contacto = 123456)
+        pacientesContacto.id = inserePacientes(tabelaPacientes, pacientesContacto)
+
+        val tabelaPacientes = TabelaPacientes(db)
+        val paciente = Paciente(nome = "?", nascimento = "?", idPacientes = id.id)
         livro.id = insereLivro(tabelaLivros, livro)
 
-        livro.titulo = "Ninfeias negras"
+        pacientes.nome = "Ninfeias negras"
         livro.autor = "Michel Bussi"
         livro.idCategoria = categoriaMisterio.id
 
