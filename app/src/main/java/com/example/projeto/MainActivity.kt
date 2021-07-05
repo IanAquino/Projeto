@@ -12,19 +12,12 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.snackbar.Snackbar
 
 
+
 class MainActivity : AppCompatActivity() {
+
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-
-
-
     private lateinit var menu: Menu
-
-    var menuAtual = R.menu.menu_lista_pacientes
-        set(value) {
-            field = value
-            invalidateOptionsMenu()
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,12 +41,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(menuAtual, menu)
+        menuInflater.inflate(R.menu.menu_lista_pacientes, menu)
         this.menu = menu
-
-        if (menuAtual == R.menu.menu_lista_pacientes) {
-            atualizaMenuListaPacientes(false)
-        }
+        atualizaMenuListaPacientes(false)
 
         return true
     }
@@ -62,20 +52,16 @@ class MainActivity : AppCompatActivity() {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        val opcaoProcessada = when (item.itemId) {
-            R.id.action_settings -> {
-                Toast.makeText(this, R.string.versao, Toast.LENGTH_LONG).show()
-                true
-            }
-
-            else -> when(menuAtual) {
-                R.menu.menu_lista_pacientes -> DadosApp.listaPacienteFragment!!.processaOpcaoMenu(item)
-                R.menu.menu_novo_paciente -> DadosApp.novoPacienteFragment!!.processaOpcaoMenu(item)
-                else -> false
+        return when (item.itemId) {
+            R.id.action_settings -> true
+            else -> {
+                if (DadosApp.listaPacienteFragment.processaOpcaoMenu(item)) {
+                    return true
+                } else {
+                    return super.onOptionsItemSelected(item)
+                }
             }
         }
-
-        return if(opcaoProcessada) true else super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {
