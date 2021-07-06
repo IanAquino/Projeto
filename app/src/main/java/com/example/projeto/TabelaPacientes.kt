@@ -11,7 +11,7 @@ class TabelaPacientes(db: SQLiteDatabase) {
     private val db: SQLiteDatabase = db
 
     fun cria() {
-        db.execSQL("CREATE TABLE $NOME_TABELA (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, $CAMPO_NOME TEXT NOT NULL, $DATA_NASCIMENTO INT NOT NULL, $CAMPO_CONTACTO TEXT NOT NULL, , $MORADA TEXT NOT NULL, , $NIF TEXT NOT NULL, , $ESTADO TEXT NOT NULL)")
+        db.execSQL("CREATE TABLE $NOME_TABELA (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, $CAMPO_NOME TEXT NOT NULL, $DATA_NASCIMENTO DATETIME NOT NULL, $CAMPO_CONTACTO TEXT NOT NULL, $MORADA TEXT NOT NULL, $NIF TEXT NOT NULL, $ESTADO TEXT NOT NULL, FOREIGN KEY ( ${CAMPO_ID_MARCACOES}) REFERENCES ${TabelaMarcacoes.NOME_TABELA})")
     }
 
     fun insert(values: ContentValues): Long {
@@ -48,8 +48,8 @@ class TabelaPacientes(db: SQLiteDatabase) {
         const val MORADA = "morada"
         const val NIF = "nif"
         const val ESTADO = "estado"
-        const val CAMPO_ID_ESTRANG_MARCACOES ="id_marcacoes"
-        val TODAS_COLUNAS = arrayOf(BaseColumns._ID, CAMPO_NOME)
+        const val CAMPO_ID_MARCACOES = "id_marcacoes"
+        val TODAS_COLUNAS = arrayOf(BaseColumns._ID, CAMPO_NOME, DATA_NASCIMENTO, CAMPO_CONTACTO, MORADA, NIF, ESTADO, CAMPO_ID_MARCACOES)
 
 
     }
