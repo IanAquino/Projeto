@@ -21,7 +21,7 @@ data class TestesBaseDados {
     private fun getBdCovidOpenHelper() = BdCovid(getAppContext())
 
     private fun insereMarcacoes(tabela: TabelaMarcacoes, marcacoes: Marcacoes): Long {
-        val db = getBdCovidOpenHelper().writableDatabase
+        //val db = getBdCovidOpenHelper().writableDatabase
         val id = tabela.insert(marcacoes.toContentValues())
         assertNotEquals(-1, id)
 
@@ -29,14 +29,14 @@ data class TestesBaseDados {
     }
 
     private fun inserePacientes(tabela: TabelaPacientes, pacientes: Pacientes): Long {
-        val db = getBdCovidOpenHelper().writableDatabase
+       // val db = getBdCovidOpenHelper().writableDatabase
         val id = tabela.insert(pacientes.toContentValues())
         assertNotEquals(-1, id)
 
         return id
     }
-    private fun insereVacina(tabela: TabelaVacinas, vacinas: Vacinas): Long {
-        val db = getBdCovidOpenHelper().writableDatabase
+    private fun insereVacinas(tabela: TabelaVacinas, vacinas: Vacinas): Long {
+        //val db = getBdCovidOpenHelper().writableDatabase
         val id = tabela.insert(vacinas.toContentValues())
         assertNotEquals(-1, id)
 
@@ -254,4 +254,170 @@ data class TestesBaseDados {
 
         db.close()
     }
+}
+
+
+
+/**
+ * Instrumented test, which will execute on an Android device.
+ *
+ * See [testing documentation](http://d.android.com/tools/testing).
+ */
+@RunWith(AndroidJUnit4::class)
+class TesteBaseDados {
+
+
+    private fun getAppContext() = InstrumentationRegistry.getInstrumentation().targetContext
+    private fun getBDCovidOpenHelper() = BdCovid(getAppContext())
+
+    private  fun insereVacinas(tabela: TabelaVacinas, vacinas: Vacinas): Long {
+        val id = tabela.insert(vacinas.toContentValues())
+        assertNotEquals(-1, id)
+
+        return id
+    }
+
+    private fun getVacinasBaseDados(tabela: TabelaVacinas, id: Long): Vacinas {
+        val cursor = tabela.query(
+            TabelaVacinas.TODAS_COLUNAS,
+            "${TabelaVacinas.NOME_TABELA}.${BaseColumns._ID}=?",
+            arrayOf(id.toString()),
+            null, null, null
+        )
+
+        assertNotNull(cursor)
+        assert(cursor!!.moveToNext())
+
+        return Vacinas.fromCursor(cursor)
+    }
+
+    private fun getPacientesBaseDados(tabela: TabelaPacientes, id: Long): Pacientes {
+        val cursor = tabela.query(
+            TabelaPacientes.TODAS_COLUNAS,
+            "${TabelaPacientes.NOME_TABELA}.${BaseColumns._ID}=?",
+            arrayOf(id.toString()),
+            null, null, null
+        )
+
+        assertNotNull(cursor)
+        assert(cursor!!.moveToNext())
+
+        return Pacientes.fromCursor(cursor)
+    }
+
+    private fun inserePacientes(tabela: TabelaPacientes, pacientes: Pacientes): Long {
+        val id = tabela.insert(pacientes.toContentValues())
+        assertNotEquals(-1, id)
+
+        return id
+    }
+
+    private fun getMarcacoesBaseDados(tabela: TabelaMarcacoes, id: Long): Marcacoes {
+        val cursor = tabela.query(
+            TabelaMarcacoes.TODAS_COLUNAS,
+            "${TabelaMarcacoes.NOME_TABELA}.${BaseColumns._ID}=?",
+            arrayOf(id.toString()),
+            null, null, null
+        )
+
+        assertNotNull(cursor)
+        assert(cursor!!.moveToNext())
+
+        return Marcacoes.fromCursor(cursor)
+    }
+
+
+
+    private fun insereMarcacoes(tabela: TabelaMarcacoes, marcacoes: Marcacoes): Long {
+        val id = tabela.insert(marcacoes.toContentValues())
+        assertNotEquals(-1, id)
+
+        return id
+    }
+
+
+
+    @Before
+    fun apagaBaseDados(){
+        getAppContext().deleteDatabase(BdCovid.NOME_BASE_DADOS)
+    }
+
+    @Test
+    fun consegueAbrirBaseDados(){
+
+        val db = getBDCovidOpenHelper().readableDatabase
+        assert(db.isOpen)
+        db.close()
+    }
+
+    //==========================================================
+    //Tabela Vacinas
+    //=========================================================
+    @Test
+    fun consegueInserirDistritos(){
+        val db = getBDCovidOpenHelper().writableDatabase
+        val tabelaDistritos = TabelaVacinas(db)
+
+        val distrito = Vacinas(nome_vacina = "Guarda")
+        distrito.id = insereVacinas(tabelaDistritos, distrito)
+
+        db.close()
+
+    }
+
+    @Test
+    fun consegueAlterarDistrito(){
+        val db = getBDCovidOpenHelper().writableDatabase
+        val tabelaDistritos = TabelaDistritos(db)
+
+        val distrito = Distrito(nome_distrito = "Guarda")
+        distrito.id = insereDistrito(tabelaDistritos, distrito)
+        distrito.nome_distrito = "PORTO"
+
+        val registoAlterados = tabelaDistritos.update(
+            distrito.toContentValues(),
+            "${BaseColumns._ID}=?",
+            arrayOf(distrito.id.toString())
+        )
+
+        assertEquals(1, registoAlterados)
+        db.close()
+    }
+
+    @Test
+    fun consegueEliminarDistritos(){
+        val db = getBDCovidOpenHelper().writableDatabase
+        val tabelaDistritos = TabelaDistritos(db)
+
+        val distrito = Distrito(nome_distrito = "Porto")
+        distrito.id = insereDistrito(tabelaDistritos, distrito)
+
+        val registosEliminados= tabelaDistritos.delete(
+            "${BaseColumns._ID}=?",
+            arrayOf(distrito.id.toString())
+        )
+
+        assertEquals(1, registosEliminados)
+        db.close()
+    }
+
+    @Test
+    fun consegueLerDistritos() {
+        val db = getBDCovidOpenHelper().writableDatabase
+        val tabelaDistritos = TabelaDistritos(db)
+
+        val distrito = Distrito(nome_distrito = "Viseu")
+        distrito.id = insereDistrito(tabelaDistritos, distrito)
+
+        assertEquals(distrito, getDistritoBaseDados(tabelaDistritos, distrito.id))
+
+        db.close()
+    }
+
+
+
+    
+
+
+
 }
