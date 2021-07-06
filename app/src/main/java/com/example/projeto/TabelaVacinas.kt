@@ -41,6 +41,7 @@ class TabelaVacinas(db: SQLiteDatabase)  {
         const val CAMPO_NOME = "nome"
         const val DOSES = "doses"
 
+
         val TODAS_COLUNAS = arrayOf(BaseColumns._ID, CAMPO_NOME, DOSES)
 
     }

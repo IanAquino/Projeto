@@ -6,14 +6,14 @@ import android.provider.BaseColumns
 //import com.example.projeto.TabelaPacientes
 import java.util.*
 
-data class Pacientes(var id: Long = -1, var nome: String, var nascimento: Date, var contacto: Int, var nif: Int, var id_Marcacoes: Long) {
+data class Pacientes(var id: Long = -1, var nome: String, var nascimento: Date, var contacto: Int, var nif: Int, var idmarcacoes: Long) {
     fun toContentValues(): ContentValues {
 
         val valores = ContentValues().apply {
             put(TabelaPacientes.CAMPO_NOME, nome)
             put(TabelaPacientes.DATA_NASCIMENTO, nascimento.time)
             put(TabelaPacientes.CAMPO_CONTACTO, contacto)
-            put(TabelaPacientes.CAMPO_ID_MARCACOES, id)
+            put(TabelaPacientes.CAMPO_ID_MARCACOES, idmarcacoes)
             put(TabelaPacientes.NIF, nif)
 
         }
@@ -33,10 +33,10 @@ data class Pacientes(var id: Long = -1, var nome: String, var nascimento: Date, 
             val nascimento = cursor.getLong(colNascimento)
             val contacto = cursor.getInt(colContacto)
             val nif = cursor.getInt(colNif)
-            val idMarcacoes = cursor.getLong(colIdMarcacoes)
+            val idmarcacoes = cursor.getLong(colIdMarcacoes)
 
 
-            return Pacientes(id, nome, Date(nascimento), contacto, nif, idMarcacoes)
+            return Pacientes(id, nome, Date(nascimento), contacto, nif, idmarcacoes)
         }
 
     }

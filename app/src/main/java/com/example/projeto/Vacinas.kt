@@ -6,9 +6,11 @@ import android.provider.BaseColumns
 
 data class Vacinas(var id: Long = -1, var nome: String, val doses: Int) {
     fun toContentValues(): ContentValues {
-        val valores = ContentValues()
-        valores.put(TabelaVacinas.CAMPO_NOME, nome)
+        val valores = ContentValues().apply {
 
+            put(TabelaVacinas.DOSES, doses)
+            put(TabelaVacinas.CAMPO_NOME, nome)
+        }
         return valores
     }
     companion object{
@@ -18,9 +20,9 @@ data class Vacinas(var id: Long = -1, var nome: String, val doses: Int) {
             val colDoses = cursor.getColumnIndex(TabelaVacinas.DOSES)
 
 
-            val id = cursor.getLong(0)
-            val nome = cursor.getString(1)
-            val doses = cursor.getInt(1)
+            val id = cursor.getLong(colId)
+            val nome = cursor.getString(colNome)
+            val doses = cursor.getInt(colDoses)
 
 
 
