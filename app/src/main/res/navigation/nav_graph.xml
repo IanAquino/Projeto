@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/NovoPacienteFragment"
-        android:name="com.example.projeto.fragment_novo_paciente2"
+        android:name="com.example.projeto.NovoPacienteFragment"
         android:label="@string/menu_novo_paciente"
         tools:layout="@layout/fragment_novo_paciente">
 

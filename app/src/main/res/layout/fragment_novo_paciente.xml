@@ -71,7 +71,9 @@
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Submeter" />
+            android:text="Submeter"
+            android:onClick="enviar"/>
+
     </com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>

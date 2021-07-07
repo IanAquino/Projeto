@@ -4,5 +4,5 @@
     <item name="textViewNif" type="id" />
     <item name="textViewNascimento" type="id" />
     <item name="textViewContacto" type="id" />
-    <item name="action_FirstFragment_to_SecondFragment" type="id" />
+    <item name="action_menu_main_to_menu_lista_pacientes" type="id" />
 </resources>

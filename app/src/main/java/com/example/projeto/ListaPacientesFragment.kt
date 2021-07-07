@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
@@ -21,6 +23,7 @@ import com.example.projeto.tabelas.TabelaPacientes
  */
 class ListaPacientesFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
+    private lateinit var homeViewModel: ListaPacientesViewModel
     private var _binding: FragmentListaPacientesBinding? = null
     private var adapterPacientes : AdapterPacientes? = null
 
@@ -32,11 +35,27 @@ class ListaPacientesFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        DadosApp.listaPacienteFragment = this
+
+        homeViewModel =
+            ViewModelProvider(this).get(ListaPacientesViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_lista_pacientes, container, false)
+
+        homeViewModel.text.observe(viewLifecycleOwner, Observer {
+
+        })
+
+        DadosApp.fragment = this
+        (activity as MainActivity).menuAtual = R.menu.menu_lista_pacientes
+
+        return root
 
 
+
+
+
+        /*DadosApp.novoPacienteFragment = this
         _binding = FragmentListaPacientesBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding.root*/
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

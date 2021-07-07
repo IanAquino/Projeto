@@ -9,7 +9,6 @@ import com.example.projeto.tabelas.*
 
 import org.junit.Test
 import org.junit.runner.RunWith
-
 import org.junit.Assert.*
 import org.junit.Before
 import java.util.*
@@ -28,7 +27,7 @@ class TesteBaseDados {
 
     private  fun inserePaciente(tabela: TabelaPacientes, pacientes: Pacientes): Long {
         val id = tabela.insert(pacientes.toContentValues())
-        assertNotEquals(1, id)
+        assertNotEquals(pacientes, id)
 
         return id
     }
@@ -161,15 +160,12 @@ class TesteBaseDados {
     fun consegueLerPaciente() {
         val db = getBDCovidOpenHelper().writableDatabase
 
-/*        val tabelaVacinas = TabelaVacinas(db)
-        val vacinas = Vacinas(nome = "Pfizer", doses = 2)
-        vacinas.id = insereVacinas(tabelaVacinas, vacinas)*/
 
         val tabelaPacientes = TabelaPacientes(db)
         val pacientes = Pacientes(nome = "Pedro", nascimento = Date(2020/12/12), contacto = "123456", nif = "123456", morada = "rua 21")
         pacientes.id = inserePaciente(tabelaPacientes, pacientes)
 
-        assertEquals(pacientes, getPacienteBaseDados(tabelaPacientes, pacientes.id))
+        assertEquals(1, getPacienteBaseDados(tabelaPacientes, pacientes.id))
 
         db.close()
     }

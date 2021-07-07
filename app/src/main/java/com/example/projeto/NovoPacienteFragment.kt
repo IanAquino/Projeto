@@ -119,6 +119,7 @@ class NovoPacienteFragment : Fragment(), LoaderManager.LoaderCallbacks <Cursor> 
             return
         }
 
+
         navegaListaPacientes()
     }
 

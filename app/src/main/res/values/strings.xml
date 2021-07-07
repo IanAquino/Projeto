@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Projeto</string>
     <string name="action_settings">Settings</string>
+    <string name="Eliminar">Eliminar</string>
     <!-- Strings used for fragments for navigation -->
     <string name="lista_pacientes_fragment_label">Pacientes</string>
     <string name="novo_pacientes_fragment_label">Novo Paciente</string>
@@ -11,6 +12,12 @@
     <string name="menu_slideshow">Slideshow</string>
 
 
+
+
+    <string name="paciente_teste">Paciente Teste</string>
+    <string name="nif_inserido">123456</string>
+    <string name="_25_10_1990">25/10/1990</string>
+    <string name="_990205170">990205170</string>
     <string name="novo_paciente">Novo Paciente</string>
     <string name="alterar_paciente">Alterar Paciente</string>
     <string name="eliminar_paciente">Eliminar Paciente</string>

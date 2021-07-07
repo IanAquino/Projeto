@@ -18,7 +18,9 @@ class AdapterPacientes(val fragment: ListaPacientesFragment) : RecyclerView.Adap
     class ViewHolderPaciente(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         private val textViewNome = itemView.findViewById<TextView>(R.id.textViewNome)
         private val textViewNif = itemView.findViewById<TextView>(R.id.textViewNif)
-        private val textViewEstado = itemView.findViewById<TextView>(R.id.textViewNascimento)
+        private val textViewContacto = itemView.findViewById<TextView>(R.id.textViewContacto)
+        private val textViewNascimento = itemView.findViewById<TextView>(R.id.textViewNascimento)
+        private val textViewMorada = itemView.findViewById<TextView>(R.id.textViewMorada)
 
         private lateinit var paciente: Pacientes
 
@@ -31,7 +33,9 @@ class AdapterPacientes(val fragment: ListaPacientesFragment) : RecyclerView.Adap
 
             textViewNome.text = paciente.nome
             textViewNif.text = paciente.nif.toString()
-            textViewEstado.text = paciente.nascimento.toString()
+            textViewNascimento.text = paciente.nascimento.toString()
+            textViewContacto.text = paciente.contacto.toString()
+            textViewMorada.text = paciente.morada.toString()
         }
 
         /**

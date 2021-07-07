@@ -2,12 +2,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.projeto.MainActivity">
+
+
+    <item
+        android:orderInCategory="104"
+        android:title="Eliminar" />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="102"
         android:title="@string/action_settings"
         app:showAsAction="never" />
-    <item
-        android:orderInCategory="104"
-        android:title="Item" />
 </menu>
