@@ -6,6 +6,9 @@ import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
 import android.provider.BaseColumns
+import com.example.projeto.tabelas.TabelaMarcacoes
+import com.example.projeto.tabelas.TabelaPacientes
+import com.example.projeto.tabelas.TabelaVacinas
 
 class ContentProviderVacinas : ContentProvider() {
     private var bdCovid : BdCovid?=null

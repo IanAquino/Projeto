@@ -3,5 +3,6 @@
     <item name="textViewNome" type="id" />
     <item name="textViewNif" type="id" />
     <item name="textViewNascimento" type="id" />
+    <item name="textViewContacto" type="id" />
     <item name="action_FirstFragment_to_SecondFragment" type="id" />
 </resources>

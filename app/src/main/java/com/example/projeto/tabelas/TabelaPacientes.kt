@@ -1,4 +1,4 @@
-package com.example.projeto
+package com.example.projeto.tabelas
 
 import android.content.ContentValues
 import android.database.Cursor
@@ -11,7 +11,7 @@ class TabelaPacientes(db: SQLiteDatabase) {
     private val db: SQLiteDatabase = db
 
     fun cria() {
-        db.execSQL("CREATE TABLE $NOME_TABELA (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, $CAMPO_NOME TEXT NOT NULL, $DATA_NASCIMENTO DATETIME NOT NULL, $CAMPO_CONTACTO TEXT NOT NULL, $MORADA TEXT NOT NULL, $NIF TEXT NOT NULL, $ESTADO TEXT NOT NULL, FOREIGN KEY ( ${CAMPO_ID_MARCACOES}) REFERENCES ${TabelaMarcacoes.NOME_TABELA})")
+        db.execSQL("CREATE TABLE $NOME_TABELA (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, $CAMPO_NOME TEXT NOT NULL, $DATA_NASCIMENTO DATETIME NOT NULL, $CAMPO_CONTACTO TEXT NOT NULL, $MORADA TEXT NOT NULL, $NIF TEXT NOT NULL, $ESTADO TEXT NOT NULL, FOREIGN KEY ( $CAMPO_ID_MARCACOES) REFERENCES ${TabelaMarcacoes.NOME_TABELA})")
     }
 
     fun insert(values: ContentValues): Long {

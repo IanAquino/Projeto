@@ -3,6 +3,9 @@ package com.example.projeto
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.projeto.tabelas.TabelaMarcacoes
+import com.example.projeto.tabelas.TabelaPacientes
+import com.example.projeto.tabelas.TabelaVacinas
 
 class BdCovid(context: Context?)
     : SQLiteOpenHelper(context, NOME_BASE_DADOS, null, VERSAO_BASE_DADOS) {

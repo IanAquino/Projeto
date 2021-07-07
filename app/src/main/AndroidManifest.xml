@@ -9,20 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Projeto">
+        <activity android:name=".fragment_novo_paciente2"></activity>
         <activity android:name=".MainActivity">
-         android:label="Pacientes"
-         android:theme="@style/Theme.Pacientes.NoActionBar">
+            android:label="Pacientes"
+            android:theme="@style/Theme.Pacientes.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
-            android:authorities="package com.example.projeto"
             android:name=".ContentProviderVacinas"
+            android:authorities="package com.example.projeto"
             android:exported="false" />
     </application>
-
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.projeto
+/*package com.example.projeto
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -38,4 +38,4 @@ class SecondFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-}
+}*/

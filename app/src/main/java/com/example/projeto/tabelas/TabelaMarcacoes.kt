@@ -1,4 +1,4 @@
-package com.example.projeto
+package com.example.projeto.tabelas
 
 import android.content.ContentValues
 import android.database.Cursor

@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import org.w3c.dom.DocumentFragment
+import com.example.projeto.classes.Pacientes
 
 class AdapterPacientes(val fragment: ListaPacientesFragment) : RecyclerView.Adapter<AdapterPacientes.ViewHolderPaciente>() {
     public var cursor: Cursor? = null

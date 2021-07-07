@@ -11,7 +11,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.projeto.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
-
+import com.example.projeto.NovoPacienteFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +19,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var menu: Menu
+    var menuAtual = R.menu.menu_lista_pacientes
+
+
+
+
+        set(value) {
+            field = value
+            invalidateOptionsMenu()
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,19 +59,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> {
-                if (DadosApp.listaPacienteFragment.processaOpcaoMenu(item)) {
-                    return true
-                } else {
-                    return super.onOptionsItemSelected(item)
-                }
+
+        val opcaoProcessada = when (item.itemId) {
+            R.id.action_settings -> {
+                Toast.makeText(this, R.string.versao, Toast.LENGTH_LONG).show()
+                true
+            }
+
+            else -> when (menuAtual){
+                R.menu.menu_lista_pacientes -> (DadosApp.fragment as ListaPacientesFragment).processaOpcaoMenu(item)
+                R.menu.menu_novo_paciente -> (DadosApp.fragment as NovoPacienteFragment).processaOpcaoMenu(item)
+               // R.menu.menu_edita_paciente-> (DadosApp.fragment as EditaPacienteFragment).processaOpcaoMenu(item)
+              //  R.menu.menu_elimina_paciente -> (DadosApp.fragment as EliminaPacienteFragment).processaOpcaoMenu(item)
+
+                R.menu.menu_lista_pacientes ->(DadosApp.fragment as ListaPacientesFragment).processaOpcaoMenu(item)
+                else -> false
+
             }
         }
+        return if(opcaoProcessada) true else super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {

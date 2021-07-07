@@ -1,8 +1,9 @@
-package com.example.projeto
+package com.example.projeto.classes
 
 import android.content.ContentValues
 import android.database.Cursor
 import android.provider.BaseColumns
+import com.example.projeto.tabelas.TabelaVacinas
 
 data class Vacinas(var id: Long = -1, var nome: String, val doses: Int) {
     fun toContentValues(): ContentValues {

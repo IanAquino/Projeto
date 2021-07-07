@@ -1,26 +1,32 @@
-package com.example.projeto
+package com.example.projeto.classes
 
 import android.content.ContentValues
 import android.database.Cursor
 import android.provider.BaseColumns
-//import com.example.projeto.TabelaPacientes
+import com.example.projeto.tabelas.TabelaPacientes
 import java.util.*
 
-data class Pacientes(var id: Long = -1, var nome: String, var nascimento: Date, var contacto: Int, var nif: Int, var idmarcacoes: Long) {
+data class Pacientes(
+    var id: Long = -1,
+    var nome: String,
+    var nascimento: Date,
+    var contacto: String,
+    var nif: String
+) {
     fun toContentValues(): ContentValues {
 
         val valores = ContentValues().apply {
             put(TabelaPacientes.CAMPO_NOME, nome)
             put(TabelaPacientes.DATA_NASCIMENTO, nascimento.time)
             put(TabelaPacientes.CAMPO_CONTACTO, contacto)
-            put(TabelaPacientes.CAMPO_ID_MARCACOES, idmarcacoes)
+           // put(TabelaPacientes.CAMPO_ID_MARCACOES, idmarcacoes)
             put(TabelaPacientes.NIF, nif)
 
         }
         return valores
     }
     companion object{
-        fun fromCursor(cursor: Cursor): Pacientes{
+        fun fromCursor(cursor: Cursor): Pacientes {
             val colId = cursor.getColumnIndex(BaseColumns._ID)
             val colNome = cursor.getColumnIndex(TabelaPacientes.CAMPO_NOME)
             val colNascimento = cursor.getColumnIndex(TabelaPacientes.DATA_NASCIMENTO)
@@ -31,12 +37,12 @@ data class Pacientes(var id: Long = -1, var nome: String, var nascimento: Date, 
             val id = cursor.getLong(colId)
             val nome = cursor.getString(colNome)
             val nascimento = cursor.getLong(colNascimento)
-            val contacto = cursor.getInt(colContacto)
-            val nif = cursor.getInt(colNif)
+            val contacto = cursor.getString(colContacto)
+            val nif = cursor.getString(colNif)
             val idmarcacoes = cursor.getLong(colIdMarcacoes)
 
 
-            return Pacientes(id, nome, Date(nascimento), contacto, nif, idmarcacoes)
+            return Pacientes(id, nome, Date(nascimento), contacto, nif)
         }
 
     }

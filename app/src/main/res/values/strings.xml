@@ -5,6 +5,13 @@
     <string name="lista_pacientes_fragment_label">Pacientes</string>
     <string name="novo_pacientes_fragment_label">Novo Paciente</string>
 
+    <string name="menu_pacientes">Pacientes</string>
+    <string name="menu_novo_paciente">Novo Paciente</string>
+    <string name="menu_edita_paciente">Editar Paciente</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+
+
     <string name="novo_paciente">Novo Paciente</string>
     <string name="alterar_paciente">Alterar Paciente</string>
     <string name="eliminar_paciente">Eliminar Paciente</string>
@@ -17,4 +24,10 @@
     <string name="preencha_nome">Preencha o nome</string>
     <string name="preencha_nif">Preencha o nif</string>
     <string name="erro_inserir_paciente">Erro ao inserir paciente</string>
+    <string name="preencha_nascimento">Preencha o campo data de nascimento</string>
+    <string name="preencha_contacto">Preencha contacto</string>
+    <string name="preencha_contacto_telemovel">Coloque o seu numero de telemovel</string>
+    <string name="erro_ao_inserir_paciente">Erro ao inserir paciente</string>
+    <string name="erro_alterar_paciente">Erro ao alterar paciente</string>
+    <string name="pessoa_alterada_sucesso">Paciente alterada com sucesso</string>
 </resources>
