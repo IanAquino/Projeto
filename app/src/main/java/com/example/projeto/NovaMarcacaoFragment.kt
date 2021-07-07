@@ -24,7 +24,7 @@ import com.example.projeto.tabelas.TabelaMarcacoes
 import com.example.projeto.classes.Marcacoes
 import java.util.*
 
-class NovoPacienteFragment : Fragment(), LoaderManager.LoaderCallbacks <Cursor> {
+class NovaMarcacaoFragment : Fragment(), LoaderManager.LoaderCallbacks <Cursor> {
 
 
     private lateinit var galleryViewModel: NovoPacienteViewModel
@@ -33,7 +33,6 @@ class NovoPacienteFragment : Fragment(), LoaderManager.LoaderCallbacks <Cursor> 
     private lateinit var editTextNascimento: EditText
     private lateinit var editTextContacto: EditText
     private lateinit var editTextNif: EditText
-    private lateinit var editTextMorada: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,7 +58,6 @@ class NovoPacienteFragment : Fragment(), LoaderManager.LoaderCallbacks <Cursor> 
         editTextNascimento = view.findViewById(R.id.editTextNascimento)
         editTextContacto = view.findViewById(R.id.editTextContacto)
         editTextNif = view.findViewById(R.id.editTextNif)
-        editTextMorada = view.findViewById(R.id.editTextMorada)
 
 
         LoaderManager.getInstance(this)
@@ -101,14 +99,8 @@ class NovoPacienteFragment : Fragment(), LoaderManager.LoaderCallbacks <Cursor> 
             editTextNif.requestFocus()
             return
         }
-        val morada = editTextMorada.text.toString()
-        if(nif.isEmpty()){
-            editTextMorada.setError(getString(R.string.preencha_morada))
-            editTextMorada.requestFocus()
-            return
-        }
 
-        val pacientes = Pacientes(nome = nome, nascimento = Date(nascimento), contacto = contacto, nif = nif, morada = "Rua 21")
+        val pacientes = Pacientes(nome = nome, nascimento = Date(nascimento), contacto = contacto, nif = nif, morada = "rua 21")
         val uri = activity?.contentResolver?.insert(
             ContentProviderVacinas.ENDERECO_PACIENTES, pacientes.toContentValues()
         )

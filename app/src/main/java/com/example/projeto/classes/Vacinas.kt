@@ -5,7 +5,7 @@ import android.database.Cursor
 import android.provider.BaseColumns
 import com.example.projeto.tabelas.TabelaVacinas
 
-data class Vacinas(var id: Long = -1, var nome: String, val doses: Int) {
+data class Vacinas(var id: Long = -1, var nome: String, var doses: Int) {
     fun toContentValues(): ContentValues {
         val valores = ContentValues().apply {
 

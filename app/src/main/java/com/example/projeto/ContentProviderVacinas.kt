@@ -11,7 +11,7 @@ import com.example.projeto.tabelas.TabelaPacientes
 import com.example.projeto.tabelas.TabelaVacinas
 
 class ContentProviderVacinas : ContentProvider() {
-    private var bdCovid : BdCovid?=null
+    private var bdCovidOpenHelper : BDCovidOpenHelper?=null
 
     /**
      * Implement this to initialize your content provider on startup.
@@ -41,7 +41,7 @@ class ContentProviderVacinas : ContentProvider() {
      * @return true if the provider was successfully loaded, false otherwise
      */
     override fun onCreate(): Boolean {
-        bdCovid = BdCovid(context)
+        bdCovidOpenHelper = BDCovidOpenHelper(context)
         return true
     }
 
@@ -119,7 +119,7 @@ class ContentProviderVacinas : ContentProvider() {
         selectionArgs: Array<out String>?,
         sortOrder: String?
     ): Cursor? {
-        val bd = bdCovid!!.readableDatabase
+        val bd = bdCovidOpenHelper!!.readableDatabase
 
         return when (getUriMatcher().match(uri)){
 
@@ -230,7 +230,7 @@ class ContentProviderVacinas : ContentProvider() {
      */
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
 
-        val bd = bdCovid!!.writableDatabase
+        val bd = bdCovidOpenHelper!!.writableDatabase
 
         val id = when (getUriMatcher().match(uri)) {
             URI_VACINAS -> TabelaVacinas(bd).insert(values!!)
@@ -268,7 +268,7 @@ class ContentProviderVacinas : ContentProvider() {
      * @throws SQLException
      */
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
-        val bd = bdCovid!!.writableDatabase
+        val bd = bdCovidOpenHelper!!.writableDatabase
 
         return when (getUriMatcher().match(uri)) {
             URI_VACINA_ESPECIFICA -> TabelaVacinas(bd).delete(
@@ -312,7 +312,7 @@ class ContentProviderVacinas : ContentProvider() {
         selectionArgs: Array<out String>?
     ): Int {
 
-        val bd = bdCovid!!.writableDatabase
+        val bd = bdCovidOpenHelper!!.writableDatabase
 
         return when (getUriMatcher().match(uri)) {
             URI_VACINA_ESPECIFICA -> TabelaVacinas(bd).update(
