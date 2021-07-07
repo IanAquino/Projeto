@@ -22,7 +22,8 @@ import java.util.*
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-@RunWith(AndroidJUnit4::class)
+
+/*@RunWith(AndroidJUnit4::class)
 data class TestesBaseDados {
 
     private fun getAppContext() = InstrumentationRegistry.getInstrumentation().targetContext
@@ -275,11 +276,11 @@ data class TestesBaseDados {
      *
      * See [testing documentation](http://d.android.com/tools/testing).
      */
-    /*@RunWith(AndroidJUnit4::class)
+    */@RunWith(AndroidJUnit4::class)
     class TestesBaseDados{
 
 
-        private fun getAppContext() = InstrumentationRegistry.getInstrumentation().targetContext
+        /*private fun getAppContext() = InstrumentationRegistry.getInstrumentation().targetContext
         private fun getBDCovidOpenHelper() = BdCovid(getAppContext())
 
         private fun insereVacinas(tabela: TabelaVacinas, vacinas: Vacinas): Long {
@@ -424,6 +425,6 @@ data class TestesBaseDados {
         db.close()
     }*/
 
+*/
 
-    }*/
 }
