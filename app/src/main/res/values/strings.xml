@@ -36,5 +36,5 @@
     <string name="preencha_contacto_telemovel">Coloque o seu numero de telemovel</string>
     <string name="erro_ao_inserir_paciente">Erro ao inserir paciente</string>
     <string name="erro_alterar_paciente">Erro ao alterar paciente</string>
-    <string name="pessoa_alterada_sucesso">Paciente alterada com sucesso</string>
+    <string name="paciente_alterada_sucesso">Paciente alterada com sucesso</string>
 </resources>
